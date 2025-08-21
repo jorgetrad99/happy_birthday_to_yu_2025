@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Cumpleaños 💖</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body {
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+
+    body {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+    }
+
+    section {
+      scroll-snap-align: start;
+      min-height: 100vh;
+    }
+
+    /* Animación de corazones */
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-800px) rotate(360deg); opacity: 0; }
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #3b82f6;
+      transform: rotate(-45deg);
+      animation: float 5s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #3b82f6;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: 10px; top: 0; }
+
+    /* Confeti */
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+      animation: confetti-fall 3s linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(600px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Fade in */
+    @keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fade-in 1s ease forwards; }
+    .delay-500 { animation-delay: 0.5s; }
+    .delay-700 { animation-delay: 0.7s; }
+  </style>
+</head>
+<body class="bg-blue-100 relative overflow-hidden">
+
+  <!-- Corazones flotando -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${3 + Math.random() * 5}s`;
+      heart.style.animationDelay = `${Math.random() * 5}s`;
+      document.body.appendChild(heart);
+    }
+
+    const confettiContainer = document.createElement('div');
+    confettiContainer.id = 'confetti-container';
+    document.body.appendChild(confettiContainer);
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti-piece');
+      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
+      confetti.style.left = `${Math.random() * 100}%`;
+      confetti.style.animationDelay = `${Math.random() * 2}s`;
+      confettiContainer.appendChild(confetti);
+    }
+  </script>
+
+  <!-- BOTONES DE NAVEGACIÓN -->
+  <div class="fixed bottom-4 right-4 flex flex-col gap-2 z-50">
+    <button id="prev" class="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:scale-110 transition-transform">⬆️</button>
+    <button id="next" class="bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg hover:scale-110 transition-transform">⬇️</button>
+  </div>
+
+  <!-- SLIDES -->
+  <section class="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-200 via-blue-300 to-blue-200 text-center">
+    <h1 class="text-4xl sm:text-6xl font-extrabold text-blue-700 mb-4 animate-bounce">¡Feliz Cumpleaños, amorcito 💖</h1>
+    <p class="text-lg sm:text-2xl text-blue-800 max-w-md animate-fade-in delay-500">Cada día contigo es un regalo, gracias por existir.</p>
+  </section>
+
+  <section class="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-300 via-blue-400 to-blue-300 text-center">
+    <h2 class="text-3xl sm:text-5xl font-bold text-blue-800 mb-4 animate-fade-in">Eres mi persona favorita 🌸</h2>
+    <p class="text-lg sm:text-2xl text-blue-900 max-w-md animate-fade-in delay-500">Cada sonrisa tuya ilumina mi mundo.</p>
+    <div class="flex gap-4 mt-6 animate-fade-in delay-700">
+      <img src="tu_foto.jpg" alt="Yo" class="w-32 h-32 sm:w-48 sm:h-48 object-cover rounded-full border-4 border-blue-600 shadow-lg">
+      <img src="foto_de_ella.jpg" alt="Ella" class="w-32 h-32 sm:w-48 sm:h-48 object-cover rounded-full border-4 border-blue-600 shadow-lg">
+    </div>
+  </section>
+
+  <section class="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-400 text-center">
+    <h2 class="text-3xl sm:text-5xl font-bold text-blue-900 mb-4 animate-bounce">Te amo muchísimo ❤️</h2>
+    <p class="text-lg sm:text-2xl text-blue-900 max-w-md animate-fade-in delay-500">Gracias por llenar mi vida de magia y alegría.</p>
+  </section>
+
+  <section class="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-500 via-blue-600 to-blue-500 text-center">
+    <h2 class="text-3xl sm:text-5xl font-bold text-white mb-4 animate-bounce">¡Hoy celebramos tu día! 🎉</h2>
+    <p class="text-lg sm:text-2xl text-blue-100 max-w-md animate-fade-in delay-500">Que todos tus deseos se hagan realidad. 🌟</p>
+  </section>
+
+  <!-- SCRIPT PARA BOTONES -->
+  <script>
+    const slides = document.querySelectorAll('section');
+    let current = 0;
+
+    document.getElementById('next').addEventListener('click', () => {
+      if (current < slides.length - 1) { 
+        current++;
+      } else {
+        current = 0;
+      }
+      slides[current].scrollIntoView({ behavior: 'smooth' });
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+      if (current > 0) {
+        current--;
+      } else {
+        current = slides.length - 1;
+      }
+      slides[current].scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
