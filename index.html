@@ -47,7 +47,7 @@
       background-color: #3b82f6;
       transform: rotate(-45deg);
       animation: float 6s linear forwards;
-      z-index: 10;
+      z-index: 999;
     }
 
     .heart::before,
@@ -76,8 +76,8 @@
       width: 10px;
       height: 10px;
       opacity: 0;
-      animation: confetti-fall 3s linear forwards;
-      z-index: 5;
+      animation: confetti-fall 6s linear forwards; /* Duración de confeti aumentada */
+      z-index: 999;
     }
 
     @keyframes confetti-fall {
@@ -123,12 +123,12 @@
 
   <!-- Corazones flotando -->
   <script>
-    // Función para crear corazones continuamente
+    // Función para crear un solo corazón
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
       heart.style.left = `${Math.random() * 100}%`;
-      heart.style.animationDuration = `${3 + Math.random() * 5}s`;
+      heart.style.animationDuration = `${6 + Math.random() * 4}s`; /* Duración entre 6 y 10 segundos */
       heart.style.animationDelay = '0s';
       document.body.appendChild(heart);
 
@@ -140,10 +140,19 @@
       }, 8000);
     }
 
-    // Crear corazones cada 200ms para que sean más visibles
+    // Función para generar una ráfaga de corazones
+    function burstHearts(count) {
+      for (let i = 0; i < count; i++) {
+        createHeart();
+      }
+    }
+
+    // Generar una ráfaga inicial de corazones
+    burstHearts(15);
+    // Crear corazones continuamente
     setInterval(createHeart, 200);
 
-    // Función para crear confeti continuamente
+    // Función para crear una sola pieza de confeti
     function createConfetti() {
       const confetti = document.createElement('div');
       confetti.classList.add('confetti-piece');
@@ -160,8 +169,17 @@
       }, 4000);
     }
 
-    // Crear confeti cada 80ms para que sea más abundante
-    setInterval(createConfetti, 80);
+    // Función para generar una ráfaga de confeti
+    function burstConfetti(count) {
+      for (let i = 0; i < count; i++) {
+        createConfetti();
+      }
+    }
+
+    // Generar una ráfaga inicial de confeti
+    burstConfetti(30);
+    // Crear confeti continuamente con una frecuencia ligeramente mayor para un flujo más notorio
+    setInterval(createConfetti, 300);
   </script>
 
   <!-- BOTONES DE NAVEGACIÓN -->
@@ -208,6 +226,29 @@
       realidad. 🌟</p>
   </section>
 
+  <!-- Nueva Slide: Pide un deseo -->
+  <section
+    class="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-600 via-blue-700 to-blue-600 text-center text-white">
+    <h2 class="text-3xl sm:text-5xl font-bold mb-8 animate-fade-in">¡Pide un deseo! ✨</h2>
+    <div class="relative w-48 h-48 sm:w-64 sm:h-64 flex items-center justify-center animate-fade-in delay-500">
+      <!-- Base del pastel (plato o capa inferior) -->
+      <div class="absolute bottom-0 w-full h-1/4 bg-gray-300 rounded-b-full"></div>
+
+      <!-- Cuerpo principal del pastel -->
+      <div class="absolute bottom-1/4 w-4/5 h-1/2 bg-pink-500 rounded-lg shadow-lg">
+        <!-- Glaseado superior -->
+        <div class="absolute top-0 left-0 right-0 h-1/4 bg-white rounded-t-lg"></div>
+      </div>
+
+      <!-- Vela -->
+      <div id="candle" class="absolute top-8 z-40">
+        <div class="w-2 h-8 bg-gray-300 mx-auto"></div>
+        <span id="flame" class="text-2xl absolute -top-4 left-1/2 -translate-x-1/2 cursor-pointer animate-pulse">🔥</span>
+      </div>
+    </div>
+    <p id="wishMessage" class="hidden mt-8 text-xl sm:text-3xl font-semibold animate-fade-in delay-700">¡Tu deseo está en camino, amorcito! 💖</p>
+  </section>
+
   <!-- SCRIPT PARA BOTONES -->
   <script>
     const slides = document.querySelectorAll('section');
@@ -220,6 +261,8 @@
         current = 0;
       }
       slides[current].scrollIntoView({ behavior: 'smooth' });
+      burstHearts(10); // Ráfaga de corazones al cambiar de slide
+      burstConfetti(20); // Ráfaga de confeti al cambiar de slide
     });
 
     document.getElementById('prev').addEventListener('click', () => {
@@ -229,7 +272,25 @@
         current = slides.length - 1;
       }
       slides[current].scrollIntoView({ behavior: 'smooth' });
+      burstHearts(10); // Ráfaga de corazones al cambiar de slide
+      burstConfetti(20); // Ráfaga de confeti al cambiar de slide
     });
+
+    // Lógica para la nueva slide de "Pide un deseo"
+    const candle = document.getElementById('candle'); // El contenedor de la vela, ahora clickeable
+    const flame = document.getElementById('flame'); // El elemento de la flama
+    const wishMessage = document.getElementById('wishMessage');
+    let candleLit = true;
+
+    if (candle) { // Asegurarse de que la vela exista antes de añadir el listener
+      candle.addEventListener('click', () => {
+        if (candleLit) {
+          flame.classList.add('hidden'); // Ocultar solo la flama
+          wishMessage.classList.remove('hidden');
+          candleLit = false;
+        }
+      });
+    }
   </script>
 
 </body>
