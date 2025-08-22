@@ -76,7 +76,7 @@
       width: 10px;
       height: 10px;
       opacity: 0;
-      animation: confetti-fall 6s linear forwards; /* Duración de confeti aumentada */
+      animation: confetti-fall 8s linear forwards; /* Duración de confeti aún más aumentada */
       z-index: 999;
     }
 
@@ -128,7 +128,7 @@
       const heart = document.createElement('div');
       heart.classList.add('heart');
       heart.style.left = `${Math.random() * 100}%`;
-      heart.style.animationDuration = `${6 + Math.random() * 4}s`; /* Duración entre 6 y 10 segundos */
+      heart.style.animationDuration = `${8 + Math.random() * 4}s`; /* Duración entre 8 y 12 segundos */
       heart.style.animationDelay = '0s';
       document.body.appendChild(heart);
 
@@ -137,7 +137,7 @@
         if (heart.parentNode) {
           heart.parentNode.removeChild(heart);
         }
-      }, 8000);
+      }, 12000); // Aumentar tiempo de remoción
     }
 
     // Función para generar una ráfaga de corazones
@@ -150,7 +150,7 @@
     // Generar una ráfaga inicial de corazones
     burstHearts(15);
     // Crear corazones continuamente
-    setInterval(createHeart, 200);
+    setInterval(createHeart, 50); // Aumentar la frecuencia
 
     // Función para crear una sola pieza de confeti
     function createConfetti() {
@@ -166,7 +166,7 @@
         if (confetti.parentNode) {
           confetti.parentNode.removeChild(confetti);
         }
-      }, 4000);
+      }, 8000); // Aumentar tiempo de remoción
     }
 
     // Función para generar una ráfaga de confeti
@@ -179,7 +179,7 @@
     // Generar una ráfaga inicial de confeti
     burstConfetti(30);
     // Crear confeti continuamente con una frecuencia ligeramente mayor para un flujo más notorio
-    setInterval(createConfetti, 300);
+    setInterval(createConfetti, 75); // Aumentar la frecuencia
   </script>
 
   <!-- BOTONES DE NAVEGACIÓN -->
@@ -215,15 +215,7 @@
   <section
     class="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-400 text-center">
     <h2 class="text-3xl sm:text-5xl font-bold text-blue-900 mb-4 animate-bounce">Te amo muchísimo ❤️</h2>
-    <p class="text-lg sm:text-2xl text-blue-900 max-w-md animate-fade-in delay-500">Gracias por llenar mi vida de magia
-      y alegría.</p>
-  </section>
-
-  <section
-    class="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-500 via-blue-600 to-blue-500 text-center">
-    <h2 class="text-3xl sm:text-5xl font-bold text-white mb-4 animate-bounce">¡Hoy celebramos tu día! 🎉</h2>
-    <p class="text-lg sm:text-2xl text-blue-100 max-w-md animate-fade-in delay-500">Que todos tus deseos se hagan
-      realidad. 🌟</p>
+    <p class="text-lg sm:text-2xl text-blue-900 max-w-md animate-fade-in delay-500">Gracias por llenar mi vida de alegría.</p>
   </section>
 
   <!-- Nueva Slide: Pide un deseo -->
@@ -249,6 +241,13 @@
     <p id="wishMessage" class="hidden mt-8 text-xl sm:text-3xl font-semibold animate-fade-in delay-700">¡Tu deseo está en camino, amorcito! 💖</p>
   </section>
 
+  <section
+    class="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-b from-blue-500 via-blue-600 to-blue-500 text-center">
+    <h2 class="text-3xl sm:text-5xl font-bold text-white mb-4 animate-bounce">¡Hoy celebramos tu día! 🎉</h2>
+    <p class="text-lg sm:text-2xl text-blue-100 max-w-md animate-fade-in delay-500">Que todos tus deseos se hagan
+      realidad. 🌟</p>
+  </section>
+
   <!-- SCRIPT PARA BOTONES -->
   <script>
     const slides = document.querySelectorAll('section');
@@ -261,8 +260,10 @@
         current = 0;
       }
       slides[current].scrollIntoView({ behavior: 'smooth' });
-      burstHearts(10); // Ráfaga de corazones al cambiar de slide
-      burstConfetti(20); // Ráfaga de confeti al cambiar de slide
+      setTimeout(() => {
+        burstHearts(50); // Ráfaga de corazones al cambiar de slide
+        burstConfetti(100); // Ráfaga de confeti al cambiar de slide
+      }, 100); // Pequeña demora para que el scroll termine
     });
 
     document.getElementById('prev').addEventListener('click', () => {
@@ -272,8 +273,10 @@
         current = slides.length - 1;
       }
       slides[current].scrollIntoView({ behavior: 'smooth' });
-      burstHearts(10); // Ráfaga de corazones al cambiar de slide
-      burstConfetti(20); // Ráfaga de confeti al cambiar de slide
+      setTimeout(() => {
+        burstHearts(50); // Ráfaga de corazones al cambiar de slide
+        burstConfetti(100); // Ráfaga de confeti al cambiar de slide
+      }, 100); // Pequeña demora para que el scroll termine
     });
 
     // Lógica para la nueva slide de "Pide un deseo"
